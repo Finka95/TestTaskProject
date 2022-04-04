@@ -8,7 +8,7 @@ using OpenQA.Selenium.Support.UI;
 namespace TestTaskProject
 {
     [TestFixture]
-    public class MainPage
+    public class UnitTestSelenium
     {
         IWebDriver driver;
         string link;
@@ -22,7 +22,6 @@ namespace TestTaskProject
             link = @"https://www.booking.com/";
             targetArrivalDateTime = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd");
             targetDepartureDateTime = DateTime.Now.AddDays(9).ToString("yyyy-MM-dd");
-
         }
 
         public void GoToMainPage()
@@ -106,6 +105,7 @@ namespace TestTaskProject
             selectElement = new SelectElement(driver.FindElement(By.XPath("//select[@name= 'age']")));
             selectElement.SelectByValue("3");
             driver.FindElement(By.XPath("//button[@data-sb-id= 'main']")).Click();
+            
             // Assert
             Assert.IsTrue(driver.Url.Contains("london"));
         }
