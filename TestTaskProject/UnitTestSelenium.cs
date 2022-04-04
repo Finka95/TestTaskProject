@@ -80,6 +80,17 @@ namespace TestTaskProject
             Assert.IsTrue(driver.Url.Contains(url));
         }
 
+        [Test]
+        public void CheckPersonalAccount()
+        {
+            // Act
+            GoToMainPage();
+            driver.FindElement(By.XPath("//a[@data-google-track= 'Click/Action: index/header_logged_out_link_box']")).Click();
+
+            // Assert
+            Assert.IsTrue(driver.Url.Contains("account.booking.com"));
+        }
+
         [TestCase("London")]
         public void UseFilterTest(string cityName)
         {
@@ -105,9 +116,9 @@ namespace TestTaskProject
             selectElement = new SelectElement(driver.FindElement(By.XPath("//select[@name= 'age']")));
             selectElement.SelectByValue("3");
             driver.FindElement(By.XPath("//button[@data-sb-id= 'main']")).Click();
-            
+
             // Assert
-            Assert.IsTrue(driver.Url.Contains("london"));
+            Assert.IsTrue(driver.FindElement(By.XPath("//a[@class= 'fc63351294 a168c6f285 a25b1d9e47']")).Displayed);
         }
 
         [OneTimeTearDown]
