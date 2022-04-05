@@ -7,7 +7,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace TestTaskProject
 {
-    [TestFixture]
+    //[TestFixture]
     public class UnitTestSelenium
     {
         IWebDriver driver;
@@ -29,7 +29,7 @@ namespace TestTaskProject
             driver.Navigate().GoToUrl(link);
         }
 
-        [Test]
+        //[Test]
         public void GoToMainPageTest()
         {
             // Act
@@ -40,7 +40,7 @@ namespace TestTaskProject
 
         }
 
-        [TestCase("RUB")]
+        //[TestCase("RUB")]
         public void ChangeCurrencyTest(string currency)
         {
             // Act
@@ -69,7 +69,7 @@ namespace TestTaskProject
             Assert.IsTrue(buttons[1].Text.Contains(language));
         }
 
-        [TestCase("booking.com/flights")]
+        //[TestCase("booking.com/flights")]
         public void GoToFlights(string url)
         {
             // Act
@@ -80,7 +80,7 @@ namespace TestTaskProject
             Assert.IsTrue(driver.Url.Contains(url));
         }
 
-        [Test]
+        //[Test]
         public void CheckPersonalAccount()
         {
             // Act
@@ -91,7 +91,7 @@ namespace TestTaskProject
             Assert.IsTrue(driver.Url.Contains("account.booking.com"));
         }
 
-        [TestCase("London")]
+        //[TestCase("London")]
         public void UseFilterTest(string cityName)
         {
             // Arrange
