@@ -43,9 +43,10 @@ namespace TestTaskProject
             mainPage.CurrencyButton.Click();
             currencyPopUp = new CurrencyPopUp(driver);
             currencyPopUp.RussianRybLink.Click();
-
+            string test = mainPage.CurrencyName.Text;
             // Assert
-            Assert.AreEqual(mainPage.CurrencyButton.Text, currency);
+            mainPage.GoToPage(driver);
+            Assert.IsTrue(mainPage.CurrencyName.Text.Contains(currency));
         }
 
 
@@ -57,12 +58,14 @@ namespace TestTaskProject
 
             // Act
             mainPage.GoToPage(driver);
+
             mainPage.LanguageButton.Click();
             languagePopUp = new LanguagePopUp(driver);
             languagePopUp.NederlandsLanguage.Click();
 
             // Assert
-            Assert.IsTrue(mainPage.LanguageButton.Text.Contains(language));
+            mainPage.GoToPage(driver);
+            Assert.IsTrue(mainPage.LanguageTextName.Text.Contains(language));
         }
 
         [TestCase("booking.com/flights")]
@@ -117,7 +120,9 @@ namespace TestTaskProject
                 mainPage.SearchButton.Click();
 
             // Assert
+            // check the page for the presence of London
             Assert.IsTrue(driver.FindElement(By.XPath("//a[@class= 'fc63351294 a168c6f285 a25b1d9e47']")).Displayed);
+
         }
 
         [OneTimeTearDown]

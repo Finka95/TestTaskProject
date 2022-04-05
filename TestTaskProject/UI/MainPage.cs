@@ -9,11 +9,17 @@ namespace TestTaskProject
 { 
     public class MainPage
     {
+        public WebDriverWait webDriverWait;
+
         private const string MAIN_PAGE = @"https://www.booking.com/";
 
         public IWebElement CurrencyButton { get; set; }
 
+        public IWebElement CurrencyName { get; set; }
+
         public IWebElement LanguageButton { get; set; }
+
+        public IWebElement LanguageTextName { get; set; }
 
         public IWebElement PersonalAccountButton { get; set; }
 
@@ -36,12 +42,15 @@ namespace TestTaskProject
         {
             driver.Navigate().GoToUrl(MAIN_PAGE);
             IniteElements(driver);
+            webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
         public void IniteElements(IWebDriver driver)
         {
             CurrencyButton = driver.FindElement(By.XPath("//*[@id=\"b2indexPage\"]/header/nav[1]/div[2]/div[1]/button"));
+            CurrencyName = driver.FindElement(By.XPath("//*[@id=\"b2indexPage\"]/header/nav[1]/div[2]/div[1]/button/span/span[1]"));
             LanguageButton = driver.FindElement(By.XPath("//*[@id=\"b2indexPage\"]/header/nav[1]/div[2]/div[2]/button"));
+            LanguageTextName = driver.FindElement(By.XPath("//*[@id=\"b2indexPage\"]/header/nav[1]/div[2]/div[2]/button/span/span"));
             FlightButton = driver.FindElement(By.XPath("//*[@id=\"b2indexPage\"]/header/nav[2]/ul/li[2]/a"));
             PersonalAccountButton = driver.FindElement(By.XPath("//*[@id=\"b2indexPage\"]/header/nav[1]/div[2]/div[6]/a"));
 
