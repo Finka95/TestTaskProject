@@ -30,12 +30,12 @@ namespace TestTaskProject
         public MainPage(IWebDriver driver)
         {
             GoToPage(driver);
-            IniteElements(driver);
         }
 
         public void GoToPage(IWebDriver driver)
         {
             driver.Navigate().GoToUrl(MAIN_PAGE);
+            IniteElements(driver);
         }
 
         public void IniteElements(IWebDriver driver)

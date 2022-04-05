@@ -15,7 +15,7 @@ namespace TestTaskProject
         string targetArrivalDateTime;
         string targetDepartureDateTime;
 
-        [OneTimeSetUp]
+        //[OneTimeSetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
@@ -53,7 +53,7 @@ namespace TestTaskProject
         }
 
 
-        [TestCase("Nederlands")]
+        //[TestCase("Nederlands")]
         public void ChangeLanguageTest(string language)
         {
             // Arrange
@@ -121,7 +121,7 @@ namespace TestTaskProject
             Assert.IsTrue(driver.FindElement(By.XPath("//a[@class= 'fc63351294 a168c6f285 a25b1d9e47']")).Displayed);
         }
 
-        [OneTimeTearDown]
+        //[OneTimeTearDown]
         public void TearDown()
         {
             driver.Quit();
