@@ -20,9 +20,6 @@ namespace TestTaskProject
         {
             driver = new ChromeDriver();
             mainPage = new MainPage(driver);
-
-            targetArrivalDateTime = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd");
-            targetDepartureDateTime = DateTime.Now.AddDays(9).ToString("yyyy-MM-dd");
         }
 
         [Test]
@@ -68,53 +65,56 @@ namespace TestTaskProject
             Assert.IsTrue(mainPage.LanguageButton.Text.Contains(language));
         }
 
-        //[TestCase("booking.com/flights")]
+        [TestCase("booking.com/flights")]
         public void GoToFlights(string url)
         {
             // Act
-            //GoToMainPage();
-            driver.FindElement(By.XPath("//a[@data-decider-header= 'flights']")).Click();
+            mainPage.GoToPage(driver);
+            mainPage.FlightButton.Click();
 
             // Assert
             Assert.IsTrue(driver.Url.Contains(url));
         }
 
-        //[Test]
-        public void CheckPersonalAccount()
+        [TestCase("account.booking.com")]
+        public void CheckPersonalAccount(string url)
         {
             // Act
-            //GoToMainPage();
-            driver.FindElement(By.XPath("//a[@data-google-track= 'Click/Action: index/header_logged_out_link_box']")).Click();
+            mainPage.GoToPage(driver);
+            mainPage.PersonalAccountButton.Click();
 
             // Assert
-            Assert.IsTrue(driver.Url.Contains("account.booking.com"));
+            Assert.IsTrue(driver.Url.Contains(url));
         }
 
-        //[TestCase("London")]
-        public void UseFilterTest(string cityName)
+        [TestCase("London", "3")]
+        public void UseFilterTest(string cityName, string yearsOldChild)
         {
             // Arrange
-            IWebElement city;
-            SelectElement selectElement;
-            ReadOnlyCollection<IWebElement> parentButton;
+            DatePopUp datePopUp;
+            PeoplePopUp peoplePopUp;
+            targetArrivalDateTime = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd");
+            targetDepartureDateTime = DateTime.Now.AddDays(9).ToString("yyyy-MM-dd");
 
             // Act
-            //GoToMainPage();
-            // select the citу
-            city = driver.FindElement(By.XPath("//input[@type= 'search']"));
-            city.Click();
-            city.SendKeys(cityName);
-            // select date
-            driver.FindElement(By.XPath("//div[@class= 'xp__dates-inner']")).Click();
-            driver.FindElement(By.XPath($"//td[@data-date= '{targetArrivalDateTime}']")).Click();
-            driver.FindElement(By.XPath($"//td[@data-date= '{targetDepartureDateTime}']")).Click();
-            // choose the number of people
-            driver.FindElement(By.XPath("//div[@data-visible= 'accommodation,flights']")).Click();
-            parentButton = driver.FindElements(By.XPath("//button[@class= 'bui-button bui-button--secondary bui-stepper__add-button ']"));
-            parentButton[1].Click();
-            selectElement = new SelectElement(driver.FindElement(By.XPath("//select[@name= 'age']")));
-            selectElement.SelectByValue("3");
-            driver.FindElement(By.XPath("//button[@data-sb-id= 'main']")).Click();
+                mainPage.GoToPage(driver);
+
+                // select the citу
+                mainPage.CityFilerField.Click();
+                mainPage.CityFilerField.SendKeys(cityName);
+
+                // select date
+                mainPage.DateFilterField.Click();
+                datePopUp = new DatePopUp(driver, targetArrivalDateTime, targetDepartureDateTime);
+                datePopUp.TargetArrivalDateTime.Click();
+                datePopUp.TargetDepartureDateTime.Click();
+
+                // choose the number of people
+                mainPage.PeopleFilerField.Click();
+                peoplePopUp = new PeoplePopUp(driver);
+                peoplePopUp.ClickOnAddChilldrenButton(driver);
+                peoplePopUp.SelectElement.SelectByValue(yearsOldChild);
+                mainPage.SearchButton.Click();
 
             // Assert
             Assert.IsTrue(driver.FindElement(By.XPath("//a[@class= 'fc63351294 a168c6f285 a25b1d9e47']")).Displayed);
