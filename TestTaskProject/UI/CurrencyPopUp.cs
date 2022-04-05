@@ -6,7 +6,7 @@ namespace TestTaskProject
     {
         public IWebElement RussianRybLink { get; set; }
 
-        public CurrencyPopUp(IWebDriver driver)
+        public CurrencyPopUp(IWebDriver driver, string currency)
         {
             RussianRybLink = driver.FindElement(By.PartialLinkText("RUB"));
         }          
